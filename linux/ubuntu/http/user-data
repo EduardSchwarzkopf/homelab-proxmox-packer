@@ -1,0 +1,36 @@
+#cloud-config
+autoinstall:
+  version: 1
+  early-commands:
+    - sudo systemctl stop ssh # Stop sshd during the installer or else packer will try to connect too early
+  locale: en_US
+  keyboard:
+    layout: de
+  storage:
+    layout:
+      name: lvm
+  network:
+    version: 2
+    ethernets:
+      all-en:
+        dhcp4: true
+        match: 
+          name: en*
+      all-eth:
+        dhcp4: true
+        match: 
+          name: eth*
+  identity:
+    hostname: ubuntu
+    username: ubuntu
+    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
+  ssh:
+    install-server: true
+    allow-pw: yes
+  packages:
+    - qemu-guest-agent
+  user-data:
+    disable_root: true
+    timezone: UTC
+  late-commands:
+  - 'echo "ubuntu ALL=(ALL) NOPASSWD: ALL" > /target/etc/sudoers.d/ubuntu'
