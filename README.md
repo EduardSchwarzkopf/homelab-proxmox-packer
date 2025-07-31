@@ -40,9 +40,6 @@ If you choose to use or adapt these templates:
 
    This will create a VM in Proxmox, perform an unattended installation via cloud-init, install any provisioning steps, and convert it to a template.
 
-4. **Optional: Build specific OS only**
-   Use `-only="ubuntu-220402"` if you have multiple build definitions in Packer configuration.
-
 ## Secrets & Version Control
 
 - Do **not** commit `secrets.auto.pkrvars.hcl`. It’s in `.gitignore` and should hold sensitive variables such as API tokens.
@@ -55,16 +52,15 @@ Ensure your Proxmox API token has permissions to:
 - Allocate VM, clone, convert to template
 - Manage cloud-init CD-ROM
 - Access storage pools
-  Refer to Proxmox documentation or community examples for exact privilege sets ([github.com][3], [github.com][6], [unixworld.org][7], [github.com][1], [github.com][8]).
 
 ## Example Workflow
 
 ```bash
 git clone https://github.com/yourusername/homelab-proxmox-packer.git
-cd linux/ubuntu
+cd linux
 
 packer init .
-packer build -force -var-file=ubuntu-220402.pkrvars.hcl .
+packer build -force -var-file=ubuntu-24402.pkrvars.hcl .
 ```
 
 After the build completes, the new template will appear in your Proxmox GUI under `VM Templates`.
