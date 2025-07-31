@@ -1,0 +1,2 @@
+os         = "ubuntu"
+os_version = "24.04.2"
